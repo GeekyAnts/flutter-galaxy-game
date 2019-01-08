@@ -8,9 +8,11 @@ import 'package:flame/game.dart';
 import 'package:flame/components/component.dart';
 import 'package:flame/components/animation_component.dart';
 import 'package:flame/flame.dart';
+import 'package:galaxygame/collision_box.dart';
 
 const SPEED = 100.0;
 const CRATE_SIZE = 50.0;
+const Bullet_Size = 30.0;
 
 var points = 0;
 
@@ -20,7 +22,12 @@ main() async {
 
   var game = new MyGame();
   runApp(game.widget);
+  
 
+  window.onPointerDataPacket = (packet) {
+    var pointer = packet.data.first;
+    game.inputScreen(pointer.physicalX, pointer.physicalY);
+  };
   Flame.audio.loop('music.ogg');
   Flame.util.addGestureRecognizer(new TapGestureRecognizer()
     ..onTapDown = (TapDownDetails evt) => game.input(evt.globalPosition));
@@ -29,7 +36,7 @@ main() async {
 class Crate extends SpriteComponent {
   bool explode = false;
   double maxY;
-
+List<CollisionBox> collisionBoxes = new List();
   Crate() : super.square(CRATE_SIZE, 'crate.png');
 
   @override
@@ -55,7 +62,8 @@ class Crate extends SpriteComponent {
 
   @override
   void resize(Size size) {
-    this.x = rnd.nextDouble() * (size.width - CRATE_SIZE);
+    this.x = size.width / 2;
+    // rnd.nextDouble() * (size.width - CRATE_SIZE);
     this.y = 0.0;
     this.maxY = size.height;
   }
@@ -64,8 +72,8 @@ class Crate extends SpriteComponent {
 class Bullet extends SpriteComponent {
   bool explode = false;
   double maxY;
-
-  Bullet() : super.square(CRATE_SIZE, 'bullet.png');
+List<CollisionBox> bulletCollision = new List();
+  Bullet() : super.square(Bullet_Size, 'bullet.png');
 
   @override
   void update(double t) {
@@ -136,6 +144,8 @@ class MyGame extends BaseGame {
       add(new Crate());
       add(new Bullet());
     }
+  
+    checkCollision(Bullet(), Crate());
     super.update(t);
   }
 
@@ -153,5 +163,10 @@ class MyGame extends BaseGame {
         points += 10;
       }
     });
+  }
+
+  void inputScreen(double x double y) {
+    
+
   }
 }
