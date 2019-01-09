@@ -15,16 +15,11 @@ class Galaxy extends BaseGame {
 
   List<Dragon> dragonList= <Dragon>[];
 
-  double dragonPositionX=0.0;
 
-  Galaxy(){
-    for(int i=0;i<5;i++) {
-      Dragon dragon = new Dragon(positionX: dragonPositionX);
-      dragonPositionX+=0.2;
-      dragonList.add(dragon);
-      add(dragon);
-    }
-  }
+  Size dimenstions;
+
+
+  Galaxy(this.dimenstions);
 
   @override
   void render(Canvas canvas) {
@@ -44,16 +39,24 @@ class Galaxy extends BaseGame {
 //    creationTimer += t;
 //    if (creationTimer >= 5) {
 //      creationTimer = 0.0;
-//    if (checkOnce) {
-//      checkOnce = false;
+    if (checkOnce) {
+      checkOnce = false;
 
 //    bullet = new Bullet();
 
 //    add(bullet);
 
+      for (int i = 1; i <= CRATE_SIZE / 7; i++) {
+        // dragon = new Dragon(dimenstions,0,0);
+        // add(dragon);
+        for (int j = 0; j < i; ++j) {
+          dragon = new Dragon(dimenstions, i, j);
+          dragonList.add(dragon);
+          add(dragon);
+        }
+      }
 
-
-//    }
+      print("dragonList -> ${dragonList}");
 //      bullet = new Bullet();
 //      add(bullet);
 //    }
@@ -70,24 +73,27 @@ class Galaxy extends BaseGame {
 //          }
 //        }
 //    });
+
+    }
+
     super.update(t);
+
   }
 
 
+    void tapInput(Offset position) {
+      print("direction: ${position.direction}");
+      touchPositionDx = position.dx;
+      touchPositionDy = position.dy;
+      bullet = new Bullet(dragonList);
+      add(bullet);
+    }
 
-  void tapInput(Offset position) {
-    print("direction: ${position.direction}");
-    touchPositionDx = position.dx;
-    touchPositionDy = position.dy;
-    bullet = new Bullet();
-    add(bullet);
-  }
-
-  void dragInput(Offset position) {
-    print("direction: ${position.direction}");
-    touchPositionDx = position.dx;
-    touchPositionDy = position.dy;
+    void dragInput(Offset position) {
+      print("direction: ${position.direction}");
+      touchPositionDx = position.dx;
+      touchPositionDy = position.dy;
 //    bullet = new Bullet();
 //    add(bullet);
-  }
+    }
 }

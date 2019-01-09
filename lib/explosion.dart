@@ -5,6 +5,8 @@ import 'package:galaxygame/main.dart';
 class Explosion extends AnimationComponent {
   static const TIME = 0.75;
 
+
+
   Explosion(Dragon dragon)
       : super.sequenced(CRATE_SIZE, CRATE_SIZE, 'explosion-4.png', 7,
       textureWidth: 31.0, textureHeight: 31.0) {

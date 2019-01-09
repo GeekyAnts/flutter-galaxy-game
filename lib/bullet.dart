@@ -1,17 +1,31 @@
 import 'dart:ui';
 
 import 'package:flame/components/component.dart';
+import 'package:galaxygame/dragon.dart';
+import 'package:galaxygame/explosion.dart';
 import 'package:galaxygame/main.dart';
 
 class Bullet extends SpriteComponent {
   bool explode = false;
   double maxY;
+  List<Dragon> dragonList= <Dragon>[];
 
-  Bullet() : super.square(CRATE_SIZE, 'gun.png');
+  Bullet(this.dragonList) : super.square(BULLET_SIZE, 'gun.png');
 
   @override
   void update(double t) {
     y -= t * SPEED;
+
+    if(dragonList.isNotEmpty)
+    dragonList.forEach((dragon){
+      bool remove = this.toRect().contains(dragon.toPosition().toOffset());
+      if (remove) {
+        dragon.explode = true;
+        dragonList.remove(dragon);
+        game.add(new Explosion(dragon));
+      }
+    });
+
   }
 
   @override

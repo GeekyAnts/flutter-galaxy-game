@@ -5,27 +5,28 @@ import 'package:galaxygame/explosion.dart';
 import 'package:galaxygame/main.dart';
 
 class Dragon extends SpriteComponent {
+  Size dimenstions;
+  int postion;
+  int ypostion;
   bool explode = false;
   double maxY;
 
-  double positionX;
-
-  Dragon({this.positionX}) : super.square(CRATE_SIZE, 'dragon.png');
+  Dragon(this.dimenstions,this.postion,this.ypostion) : super.square(CRATE_SIZE, 'dragon.png');
 
   @override
   void update(double t) {
     y += t * SPEED;
 
 //    print("y -> ${y}");
-    if (game != null && dragon != null && bullet != null && y > 0.0) {
-//      print("bullet.toPosition().toOffset() -> ${bullet.toPosition().toOffset()}");
-//      print("dragon.toRect().toString() -> ${dragon.toRect().toString()}");
-      bool remove = this.toRect().contains(bullet.toPosition().toOffset());
-      if (remove) {
-        dragon.explode = true;
-        game.add(new Explosion(dragon));
-      }
-    }
+//    if (game != null && dragon != null && bullet != null && y > 0.0) {
+////      print("bullet.toPosition().toOffset() -> ${bullet.toPosition().toOffset()}");
+////      print("dragon.toRect().toString() -> ${dragon.toRect().toString()}");
+//      bool remove = this.toRect().contains(bullet.toPosition().toOffset());
+//      if (remove) {
+//        dragon.explode = true;
+//        game.add(new Explosion(dragon));
+//      }
+//    }
   }
 
   @override
@@ -49,8 +50,9 @@ class Dragon extends SpriteComponent {
 
   @override
   void resize(Size size) {
-    this.x = positionX;
-    this.y = 0.0;
+    this.x =  size.width - CRATE_SIZE*postion ;
+    //rnd.nextDouble() * (size.width - CRATE_SIZE);
+    this.y = CRATE_SIZE*ypostion;
     this.maxY = size.height;
   }
 }

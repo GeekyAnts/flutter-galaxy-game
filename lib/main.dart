@@ -1,16 +1,18 @@
 import 'dart:math';
 
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart' ;
 
 import 'package:flame/flame.dart';
 import 'package:galaxygame/bullet.dart';
 import 'package:galaxygame/dragon.dart';
 import 'package:galaxygame/galaxy.dart';
 
-const SPEED = 75.0;
-const CRATE_SIZE = 30.0;
+const SPEED = 40.0;
+const CRATE_SIZE = 40.0;
+const BULLET_SIZE = 40.0;
+
 
 var points = 0;
 Dragon dragon;
@@ -18,21 +20,19 @@ Bullet bullet;
 
 var game;
 
-
-Random rnd = new Random();
-
 double touchPositionDx = 0.0;
 double touchPositionDy = 0.0;
-
-double bulletPositionDx = 0.0;
-double bulletPositionDy = 0.0;
 
 
 main() async {
   Flame.audio.disableLog();
   Flame.images.loadAll(['fire.png', 'dragon.png', 'gun.png', 'bullet.png']);
 
-  game = new Galaxy();
+
+  var dimensions = await Flame.util.initialDimensions();
+
+
+  game = new Galaxy(dimensions);
   runApp(MaterialApp(home: Scaffold(body: Container(
       decoration: new BoxDecoration(
         image: new DecorationImage(
@@ -43,7 +43,7 @@ main() async {
       child: GameWrapper(game)))));
 
   HorizontalDragGestureRecognizer horizontalDragGestureRecognizer =
-      new HorizontalDragGestureRecognizer();
+  new HorizontalDragGestureRecognizer();
 
   // Adds ondrag feature to fire bullets
   Flame.util.addGestureRecognizer(horizontalDragGestureRecognizer
@@ -64,7 +64,4 @@ class GameWrapper extends StatelessWidget {
     return game.widget;
   }
 }
-
-
-
 
