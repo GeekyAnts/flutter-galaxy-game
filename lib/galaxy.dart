@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flame/components/component.dart';
@@ -36,9 +37,19 @@ class Galaxy extends BaseGame {
 
   @override
   void update(double t) {
-//    creationTimer += t;
-//    if (creationTimer >= 5) {
+    creationTimer += t;
+//    if (creationTimer >= 0.5) {
 //      creationTimer = 0.0;
+//
+////      Timer( Duration(seconds: 3),(){
+//
+//      if(bulletStartStop) {
+//        bullet = new Bullet(dragonList);
+//        add(bullet);
+//      }
+////      });
+//    }
+
     if (checkOnce) {
       checkOnce = false;
 
@@ -85,15 +96,25 @@ class Galaxy extends BaseGame {
       print("direction: ${position.direction}");
       touchPositionDx = position.dx;
       touchPositionDy = position.dy;
-      bullet = new Bullet(dragonList);
-      add(bullet);
+      bulletStartStop=true;
+//      Timer( Duration(seconds: 3),(){
+        bullet = new Bullet(dragonList);
+        add(bullet);
+//      });
+
     }
 
     void dragInput(Offset position) {
       print("direction: ${position.direction}");
       touchPositionDx = position.dx;
       touchPositionDy = position.dy;
+      bulletStartStop=true;
+
 //    bullet = new Bullet();
 //    add(bullet);
+    }
+
+    void onUp() {
+      bulletStartStop=false;
     }
 }

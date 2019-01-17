@@ -15,7 +15,7 @@ class Dragon extends SpriteComponent {
 
   @override
   void update(double t) {
-    y += t * SPEED;
+    y += t * DRAGONSPEED;
 
 //    print("y -> ${y}");
 //    if (game != null && dragon != null && bullet != null && y > 0.0) {
