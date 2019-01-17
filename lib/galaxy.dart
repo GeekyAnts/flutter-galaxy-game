@@ -12,12 +12,11 @@ import 'package:galaxygame/main.dart';
 class Galaxy extends BaseGame {
   double creationTimer = 0.0;
   bool checkOnce = true;
-
-  List<Dragon> dragonList= <Dragon>[];
-
+  int period = 1;
+  int k = 0;
+  List<Dragon> dragonList = <Dragon>[];
 
   Size dimenstions;
-
 
   Galaxy(this.dimenstions);
 
@@ -36,30 +35,31 @@ class Galaxy extends BaseGame {
 
   @override
   void update(double t) {
-//    creationTimer += t;
-//    if (creationTimer >= 5) {
-//      creationTimer = 0.0;
-    if (checkOnce) {
-      checkOnce = false;
+    creationTimer += t;
+
+    if (creationTimer >= period) {
+      creationTimer = 0.0;
+      period = period += 3;
+      if (checkOnce) {
+        // checkOnce = false;
 
 //    bullet = new Bullet();
 
 //    add(bullet);
-
-      for (int i = 1; i <= CRATE_SIZE / 7; i++) {
-        // dragon = new Dragon(dimenstions,0,0);
-        // add(dragon);
-        for (int j = 0; j < i; ++j) {
-          dragon = new Dragon(dimenstions, i, j);
-          dragonList.add(dragon);
-          add(dragon);
+        k += 1;
+        for (int i = 1; i <= 3 + k; i++) {
+          // dragon = new Dragon(dimenstions,0,0);
+          // add(dragon);
+          for (int j = 0; j < i; j++) {
+            dragon = new Dragon(dimenstions, i, j);
+            dragonList.add(dragon);
+            add(dragon);
+          }
         }
-      }
 
-      print("dragonList -> ${dragonList}");
 //      bullet = new Bullet();
 //      add(bullet);
-//    }
+        //     }
 
 //    components.forEach((component) {
 //      print("component -> ${component.toString()}");
@@ -74,26 +74,24 @@ class Galaxy extends BaseGame {
 //        }
 //    });
 
+      }
     }
-
     super.update(t);
-
   }
 
+  void tapInput(Offset position) {
+    print("direction: ${position.direction}");
+    touchPositionDx = position.dx;
+    touchPositionDy = position.dy;
+    bullet = new Bullet(dragonList);
+    add(bullet);
+  }
 
-    void tapInput(Offset position) {
-      print("direction: ${position.direction}");
-      touchPositionDx = position.dx;
-      touchPositionDy = position.dy;
-      bullet = new Bullet(dragonList);
-      add(bullet);
-    }
-
-    void dragInput(Offset position) {
-      print("direction: ${position.direction}");
-      touchPositionDx = position.dx;
-      touchPositionDy = position.dy;
+  void dragInput(Offset position) {
+    print("direction: ${position.direction}");
+    touchPositionDx = position.dx;
+    touchPositionDy = position.dy;
 //    bullet = new Bullet();
 //    add(bullet);
-    }
+  }
 }

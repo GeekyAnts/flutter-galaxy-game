@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/components/component.dart';
 import 'package:galaxygame/explosion.dart';
 import 'package:galaxygame/main.dart';
+import 'dart:math';
 
 class Dragon extends SpriteComponent {
   Size dimenstions;
@@ -11,7 +12,8 @@ class Dragon extends SpriteComponent {
   bool explode = false;
   double maxY;
 
-  Dragon(this.dimenstions,this.postion,this.ypostion) : super.square(CRATE_SIZE, 'dragon.png');
+  Dragon(this.dimenstions, this.postion, this.ypostion)
+      : super.square(CRATE_SIZE, 'dragon.png');
 
   @override
   void update(double t) {
@@ -48,11 +50,12 @@ class Dragon extends SpriteComponent {
 //    return destroy;
   }
 
+  var rnd = Random();
   @override
   void resize(Size size) {
-    this.x =  size.width - CRATE_SIZE*postion ;
+    this.x = (CRATE_SIZE * postion);
     //rnd.nextDouble() * (size.width - CRATE_SIZE);
-    this.y = CRATE_SIZE*ypostion;
+    this.y = CRATE_SIZE * ypostion;
     this.maxY = size.height;
   }
 }
