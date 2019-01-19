@@ -9,15 +9,18 @@ import 'package:galaxygame/bullet.dart';
 import 'package:galaxygame/dragon.dart';
 import 'package:galaxygame/galaxy.dart';
 
-const SPEED = 40.0;
+const DRAGONSPEED = 100.0;
+const BULLETSPEED = 60.0;
 const CRATE_SIZE = 40.0;
-const BULLET_SIZE = 40.0;
+const BULLET_SIZE = 20.0;
 
 var points = 0;
 Dragon dragon;
 Bullet bullet;
 
 var game;
+
+bool bulletStartStop = false;
 
 double touchPositionDx = 0.0;
 double touchPositionDy = 0.0;
@@ -48,6 +51,10 @@ main() async {
 
   Flame.util.addGestureRecognizer(new TapGestureRecognizer()
     ..onTapDown = (TapDownDetails evt) => game.tapInput(evt.globalPosition));
+
+  // Adds onUP feature to fire bullets
+  Flame.util.addGestureRecognizer(new TapGestureRecognizer()
+    ..onTapUp = (TapUpDetails evt) => game.onUp(evt.globalPosition));
 }
 
 class GameWrapper extends StatelessWidget {

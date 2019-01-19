@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flame/components/component.dart';
@@ -12,10 +13,9 @@ import 'package:galaxygame/main.dart';
 class Galaxy extends BaseGame {
   double creationTimer = 0.0;
   bool checkOnce = true;
-  int period = 1;
-  int k = 0;
-  List<Dragon> dragonList = <Dragon>[];
 
+  List<Dragon> dragonList = <Dragon>[];
+  List<Bullet> bulletList = <Bullet>[];
   Size dimenstions;
 
   Galaxy(this.dimenstions);
@@ -36,62 +36,36 @@ class Galaxy extends BaseGame {
   @override
   void update(double t) {
     creationTimer += t;
-
-    if (creationTimer >= period) {
+    if (creationTimer >= 4) {
       creationTimer = 0.0;
-      period = period += 3;
-      if (checkOnce) {
-        // checkOnce = false;
 
-//    bullet = new Bullet();
-
-//    add(bullet);
-        k += 1;
-        for (int i = 1; i <= 3 + k; i++) {
-          // dragon = new Dragon(dimenstions,0,0);
-          // add(dragon);
-          for (int j = 0; j < i; j++) {
-            dragon = new Dragon(dimenstions, i, j);
-            dragonList.add(dragon);
-            add(dragon);
-          }
+      for (int i = 1; i <= CRATE_SIZE / 7; i++) {
+        for (int j = 0; j < i; ++j) {
+          dragon = new Dragon(dimenstions, i, j);
+          dragonList.add(dragon);
+          add(dragon);
         }
-
-//      bullet = new Bullet();
-//      add(bullet);
-        //     }
-
-//    components.forEach((component) {
-//      print("component -> ${component.toString()}");
-
-//        if(dragon!=null&&bullet!=null) {
-//          print("bullet.toPosition().toOffset() -> ${bullet.toPosition().toOffset()}");
-//          bool remove = dragon.toRect().contains(bullet.toPosition().toOffset());
-//          if (remove) {
-//            dragon.explode = true;
-//            add(new Explosion(dragon));
-//          }
-//        }
-//    });
-
       }
     }
     super.update(t);
   }
 
   void tapInput(Offset position) {
-    print("direction: ${position.direction}");
     touchPositionDx = position.dx;
     touchPositionDy = position.dy;
-    bullet = new Bullet(dragonList);
+    bulletStartStop = true;
+    bulletList.add(bullet);
+    bullet = new Bullet(dragonList, bulletList);
     add(bullet);
   }
 
   void dragInput(Offset position) {
-    print("direction: ${position.direction}");
     touchPositionDx = position.dx;
     touchPositionDy = position.dy;
-//    bullet = new Bullet();
-//    add(bullet);
+    bulletStartStop = true;
+  }
+
+  void onUp() {
+    bulletStartStop = false;
   }
 }

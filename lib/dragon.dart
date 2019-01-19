@@ -17,7 +17,7 @@ class Dragon extends SpriteComponent {
 
   @override
   void update(double t) {
-    y += t * SPEED;
+    y += t * DRAGONSPEED;
 
 //    print("y -> ${y}");
 //    if (game != null && dragon != null && bullet != null && y > 0.0) {
@@ -41,13 +41,8 @@ class Dragon extends SpriteComponent {
       return false;
     }
     bool destroy = y >= maxY + CRATE_SIZE / 2;
-    if (destroy) {
-//      points -= 20;
-//      Flame.audio.play('miss.mp3');
-    }
+    if (destroy) {}
     return destroy;
-//    bool destroy = this.y==this.maxY;
-//    return destroy;
   }
 
   var rnd = Random();

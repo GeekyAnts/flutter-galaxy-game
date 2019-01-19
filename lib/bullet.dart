@@ -8,24 +8,28 @@ import 'package:galaxygame/main.dart';
 class Bullet extends SpriteComponent {
   bool explode = false;
   double maxY;
-  List<Dragon> dragonList= <Dragon>[];
-
-  Bullet(this.dragonList) : super.square(BULLET_SIZE, 'gun.png');
+  List<Dragon> dragonList = <Dragon>[];
+  List<Bullet> bulletList = <Bullet>[];
+  Bullet(this.dragonList, this.bulletList)
+      : super.square(BULLET_SIZE, 'gun.png');
 
   @override
   void update(double t) {
-    y -= t * SPEED;
+    y -= t * BULLETSPEED;
 
-    if(dragonList.isNotEmpty)
-    dragonList.forEach((dragon){
-      bool remove = this.toRect().contains(dragon.toPosition().toOffset());
-      if (remove) {
-        dragon.explode = true;
-        dragonList.remove(dragon);
-        game.add(new Explosion(dragon));
-      }
-    });
-
+    if (dragonList.isNotEmpty)
+      dragonList.forEach((dragon) {
+        bool remove = this.toRect().contains(dragon.toRect().bottomCenter) ||
+            this.toRect().contains(dragon.toRect().bottomLeft) ||
+            this.toRect().contains(dragon.toRect().bottomRight);
+        if (remove) {
+          points += 1;
+          dragon.explode = true;
+          bullet.explode = true;
+          dragonList.remove(dragon);
+          game.add(new Explosion(dragon));
+        }
+      });
   }
 
   @override
@@ -36,11 +40,8 @@ class Bullet extends SpriteComponent {
     if (y == null || maxY == null) {
       return false;
     }
-    bool destroy = y >= maxY + CRATE_SIZE / 2;
-    if (destroy) {
-//      points += 20;
-//      Flame.audio.play('miss.mp3');
-    }
+    bool destroy = y >= maxY;
+
     return destroy;
   }
 
