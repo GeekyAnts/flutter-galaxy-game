@@ -1,17 +1,13 @@
-import 'dart:async';
 import 'dart:ui';
 
-import 'package:flame/components/component.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:galaxygame/bullet.dart';
 import 'package:galaxygame/dragon.dart';
-import 'package:galaxygame/explosion.dart';
 import 'package:galaxygame/main.dart';
 
 class Galaxy extends BaseGame {
-  double creationTimer = 0.0;
   bool checkOnce = true;
 
   List<Dragon> dragonList = <Dragon>[];
@@ -24,15 +20,19 @@ class Galaxy extends BaseGame {
   void render(Canvas canvas) {
     super.render(canvas);
 
-//    print("rendered");
     String text = points.toString();
     TextPainter p = Flame.util
         .text(text, color: Colors.white, fontSize: 48.0, fontFamily: 'Halo');
-
-    p.paint(canvas,
-        new Offset(size.width - p.width - 10, size.height - p.height - 10));
+    String over = "Game over";
+    TextPainter overGame = Flame.util
+        .text(over, color: Colors.white, fontSize: 48.0, fontFamily: 'Halo');
+    gameOver
+        ? overGame.paint(canvas, Offset(size.width / 5, size.height / 2))
+        : p.paint(canvas,
+            new Offset(size.width - p.width - 10, size.height - p.height - 10));
   }
 
+  double creationTimer = 0.0;
   @override
   void update(double t) {
     creationTimer += t;

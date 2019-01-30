@@ -15,7 +15,7 @@ class Bullet extends SpriteComponent {
 
   @override
   void update(double t) {
-    y -= t * BULLETSPEED;
+    y -= gameOver ? 0 : t * BULLETSPEED;
 
     if (dragonList.isNotEmpty)
       dragonList.forEach((dragon) {

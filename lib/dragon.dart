@@ -1,9 +1,7 @@
 import 'dart:ui';
 
 import 'package:flame/components/component.dart';
-import 'package:galaxygame/explosion.dart';
 import 'package:galaxygame/main.dart';
-import 'dart:math';
 
 class Dragon extends SpriteComponent {
   Size dimenstions;
@@ -17,39 +15,30 @@ class Dragon extends SpriteComponent {
 
   @override
   void update(double t) {
-    y += t * DRAGONSPEED;
-
-//    print("y -> ${y}");
-//    if (game != null && dragon != null && bullet != null && y > 0.0) {
-////      print("bullet.toPosition().toOffset() -> ${bullet.toPosition().toOffset()}");
-////      print("dragon.toRect().toString() -> ${dragon.toRect().toString()}");
-//      bool remove = this.toRect().contains(bullet.toPosition().toOffset());
-//      if (remove) {
-//        dragon.explode = true;
-//        game.add(new Explosion(dragon));
-//      }
-//    }
+    y += gameOver ? 0 : (t * DRAGONSPEED);
   }
 
   @override
   bool destroy() {
     if (explode) {
-      print("exploded");
       return true;
     }
     if (y == null || maxY == null) {
       return false;
     }
     bool destroy = y >= maxY + CRATE_SIZE / 2;
-    if (destroy) {}
+    if (destroy) {
+      gameOver = true;
+
+      print("Game over");
+      return true;
+    }
     return destroy;
   }
 
-  var rnd = Random();
   @override
   void resize(Size size) {
     this.x = (CRATE_SIZE * postion);
-    //rnd.nextDouble() * (size.width - CRATE_SIZE);
     this.y = CRATE_SIZE * ypostion;
     this.maxY = size.height;
   }

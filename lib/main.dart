@@ -1,7 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/gestures.dart';
 
+import 'package:flame/components/component.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flame/flame.dart';
@@ -9,7 +9,8 @@ import 'package:galaxygame/bullet.dart';
 import 'package:galaxygame/dragon.dart';
 import 'package:galaxygame/galaxy.dart';
 
-const DRAGONSPEED = 100.0;
+bool gameOver = false;
+const DRAGONSPEED = 120.0;
 const BULLETSPEED = 60.0;
 const CRATE_SIZE = 40.0;
 const BULLET_SIZE = 20.0;
@@ -35,13 +36,14 @@ main() async {
   runApp(MaterialApp(
       home: Scaffold(
           body: Container(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  image: new AssetImage("assets/images/background.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: GameWrapper(game)))));
+    decoration: new BoxDecoration(
+      image: new DecorationImage(
+        image: new AssetImage("assets/images/background.jpg"),
+        fit: BoxFit.cover,
+      ),
+    ),
+    child: GameWrapper(game),
+  ))));
 
   HorizontalDragGestureRecognizer horizontalDragGestureRecognizer =
       new HorizontalDragGestureRecognizer();
