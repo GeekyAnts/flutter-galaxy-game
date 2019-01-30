@@ -12,7 +12,7 @@ import 'package:galaxygame/galaxy.dart';
 bool gameOver = false;
 const DRAGONSPEED = 120.0;
 const BULLETSPEED = 60.0;
-const CRATE_SIZE = 40.0;
+const DRAGON_SIZE = 40.0;
 const BULLET_SIZE = 20.0;
 
 var points = 0;

@@ -39,7 +39,7 @@ class Galaxy extends BaseGame {
     if (creationTimer >= 4) {
       creationTimer = 0.0;
 
-      for (int i = 1; i <= CRATE_SIZE / 7; i++) {
+      for (int i = 1; i <= DRAGON_SIZE / 7; i++) {
         for (int j = 0; j < i; ++j) {
           dragon = new Dragon(dimenstions, i, j);
           dragonList.add(dragon);

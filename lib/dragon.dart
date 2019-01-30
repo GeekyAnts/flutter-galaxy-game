@@ -11,7 +11,7 @@ class Dragon extends SpriteComponent {
   double maxY;
 
   Dragon(this.dimenstions, this.postion, this.ypostion)
-      : super.square(CRATE_SIZE, 'dragon.png');
+      : super.square(DRAGON_SIZE, 'dragon.png');
 
   @override
   void update(double t) {
@@ -26,7 +26,7 @@ class Dragon extends SpriteComponent {
     if (y == null || maxY == null) {
       return false;
     }
-    bool destroy = y >= maxY + CRATE_SIZE / 2;
+    bool destroy = y >= maxY + DRAGON_SIZE / 2;
     if (destroy) {
       gameOver = true;
 
@@ -38,8 +38,8 @@ class Dragon extends SpriteComponent {
 
   @override
   void resize(Size size) {
-    this.x = (CRATE_SIZE * postion);
-    this.y = CRATE_SIZE * ypostion;
+    this.x = (DRAGON_SIZE * postion);
+    this.y = DRAGON_SIZE * ypostion;
     this.maxY = size.height;
   }
 }
