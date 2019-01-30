@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+![Game demo](https://github.com/raj2611/galaxyGame/blob/master/sec.gif)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
