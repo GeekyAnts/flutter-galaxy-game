@@ -1,4 +1,4 @@
-# galaxygame
+# Galaxy: A 2D game in Flutter using the Flame Engine
 
 A new Flutter project.
 
