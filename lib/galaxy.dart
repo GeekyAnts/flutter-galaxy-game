@@ -21,11 +21,15 @@ class Galaxy extends BaseGame {
     super.render(canvas);
 
     String text = points.toString();
-    TextPainter p = Flame.util
-        .text(text, color: Colors.white, fontSize: 48.0, fontFamily: 'Halo');
+    TextSpan span = TextSpan(text: text, style: TextStyle(fontSize: 48.0, color:Colors.white, fontFamily: 'Halo'));
+    TextPainter p = TextPainter(text: span, textDirection: TextDirection.ltr);
+    p.layout(minWidth: 0.0);
+    
     String over = "Game over";
-    TextPainter overGame = Flame.util
-        .text(over, color: Colors.white, fontSize: 48.0, fontFamily: 'Halo');
+    TextSpan spann = TextSpan(text: over, style: TextStyle(fontSize: 48.0, color:Colors.white, fontFamily: 'Halo'));
+    TextPainter overGame = TextPainter(text: spann, textDirection: TextDirection.ltr);
+    overGame.layout(minWidth: 0.0);
+   
     gameOver
         ? overGame.paint(canvas, Offset(size.width / 5, size.height / 2))
         : p.paint(canvas,
